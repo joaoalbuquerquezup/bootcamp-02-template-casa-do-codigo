@@ -12,19 +12,19 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/author")
-public class NewAuthorController {
+public class CreateAuthorController {
 
     private final EntityManager entityManager;
 
-    public NewAuthorController(EntityManager entityManager) {
+    public CreateAuthorController(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> create (@Valid @RequestBody NewAuthorRequest newAuthorRequest) {
+    public ResponseEntity<Void> create (@Valid @RequestBody CreateAuthorRequest createAuthorRequest) {
 
-        Author author = newAuthorRequest.toModel();
+        Author author = createAuthorRequest.toModel();
         entityManager.persist(author);
 
         return ResponseEntity.ok().build();

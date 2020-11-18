@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonAutoDetect (fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class NewAuthorRequest {
+public class CreateAuthorRequest {
 
     private @NotBlank String name;
     private @NotBlank @Email String email;
