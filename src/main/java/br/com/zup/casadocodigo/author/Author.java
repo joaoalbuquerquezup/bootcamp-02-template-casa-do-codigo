@@ -23,7 +23,7 @@ public class Author {
     private  String name;
 
     @NotBlank @Email
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private  String email;
 
     @NotBlank @Size(max = 400)
