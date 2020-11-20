@@ -38,7 +38,7 @@ public class Author {
      * Hibernate usage only
      */
     @Deprecated
-    public Author() { }
+    protected Author() { }
 
     public Author(@NotBlank String name,
                   @NotBlank @Email String email,
