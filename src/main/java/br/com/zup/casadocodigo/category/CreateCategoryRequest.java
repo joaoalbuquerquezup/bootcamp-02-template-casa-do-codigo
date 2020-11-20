@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CreateCategoryRequest {
 
-    public @NotBlank @Unique(clazz = CreateCategoryRequest.class, field = "name") String name;
+    public @NotBlank @Unique(clazz = Category.class, field = "name") String name;
 
     public Category toModel() {
         return new Category(this.name);
