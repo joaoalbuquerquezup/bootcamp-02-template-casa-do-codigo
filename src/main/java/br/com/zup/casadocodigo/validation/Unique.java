@@ -17,9 +17,17 @@ public @interface Unique {
 
     String message() default "{unique}";
 
+    /**
+     * The class type of a {@link javax.persistence.Entity}
+     * that uniqueness will be checked
+     */
     Class<?> clazz();
 
-    String field();
+    /**
+     * (Optional) the name of the field that will be
+     * used in the search for uniqueness
+     */
+    String field() default "";
 
     Class<?>[] groups() default {};
 
