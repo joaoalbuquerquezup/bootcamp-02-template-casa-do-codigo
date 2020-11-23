@@ -1,15 +1,8 @@
 package br.com.zup.casadocodigo.book;
 
 import br.com.zup.casadocodigo.author.Author;
-import br.com.zup.casadocodigo.book.builder.BookAuthorBuilder;
-import br.com.zup.casadocodigo.book.builder.BookCategoryBuilder;
-import br.com.zup.casadocodigo.book.builder.BookIsbnBuilder;
-import br.com.zup.casadocodigo.book.builder.BookPriceBuilder;
-import br.com.zup.casadocodigo.book.builder.BookSummaryBuilder;
-import br.com.zup.casadocodigo.book.builder.BookTitleBuilder;
-import br.com.zup.casadocodigo.book.builder.BookTotalPagesBuilder;
-import br.com.zup.casadocodigo.book.builder.FinalBookBuilder;
 import br.com.zup.casadocodigo.category.Category;
+import br.com.zup.casadocodigo.validation.Unique;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -89,16 +82,14 @@ public class Book {
         this.author = bookBuilder.author;
     }
 
-    public static class BookBuilder implements BookTitleBuilder, BookSummaryBuilder, BookPriceBuilder,
-            BookTotalPagesBuilder, BookIsbnBuilder, BookCategoryBuilder,
-            BookAuthorBuilder, FinalBookBuilder {
+    public static class BookBuilder {
 
-        private @NotBlank String title;
+        private @NotBlank @Unique(clazz = Book.class) String title;
         private @NotBlank @Size(max = 500) String summary;
         private String index;
         private @NotNull @Min(value = 20L) BigDecimal price;
         private @NotNull @Min(value = 100L) Integer totalPages;
-        private @NotBlank String isbn;
+        private @NotBlank @Unique(clazz = Book.class) String isbn;
         private @Future LocalDate publishDate;
         private @NotNull Category category;
         private @NotNull Author author;
@@ -106,67 +97,58 @@ public class Book {
         /**
          * @see #aBook()
          */
-        private BookBuilder() { }
+        private BookBuilder() {
+        }
 
-        public static BookTitleBuilder aBook() {
+        public static BookBuilder aBook() {
             return new BookBuilder();
         }
 
-        @Override
-        public BookSummaryBuilder withTitle(String title) {
+        public BookBuilder withTitle(String title) {
             this.title = title;
             return this;
         }
 
-        @Override
-        public BookPriceBuilder withSummary(String summary) {
+        public BookBuilder withSummary(String summary) {
             this.summary = summary;
             return this;
         }
 
-        @Override
-        public BookTotalPagesBuilder withPrice(BigDecimal price) {
+        public BookBuilder withPrice(BigDecimal price) {
             this.price = price;
             return this;
         }
 
-        @Override
-        public BookIsbnBuilder withTotalPages(Integer totalPages) {
+        public BookBuilder withTotalPages(Integer totalPages) {
             this.totalPages = totalPages;
             return this;
         }
 
-        @Override
-        public BookCategoryBuilder withIsbn(String isbn) {
+        public BookBuilder withIsbn(String isbn) {
             this.isbn = isbn;
             return this;
         }
 
-        @Override
-        public BookAuthorBuilder withCategory(Category category) {
+        public BookBuilder withCategory(Category category) {
             this.category = category;
             return this;
         }
 
-        @Override
-        public FinalBookBuilder withAuthor(Author author) {
+        public BookBuilder withAuthor(Author author) {
             this.author = author;
             return this;
         }
 
-        @Override
-        public FinalBookBuilder withIndex(String index) {
+        public BookBuilder withIndex(String index) {
             this.index = index;
             return this;
         }
 
-        @Override
-        public FinalBookBuilder withPublishDate(LocalDate publishDate) {
+        public BookBuilder withPublishDate(LocalDate publishDate) {
             this.publishDate = publishDate;
             return this;
         }
 
-        @Override
         public Book build() {
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
             Set<ConstraintViolation<BookBuilder>> violationSet = validator.validate(this);
