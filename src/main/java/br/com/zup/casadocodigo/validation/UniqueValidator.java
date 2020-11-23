@@ -1,5 +1,7 @@
 package br.com.zup.casadocodigo.validation;
 
+import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
+import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -12,6 +14,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.lang.reflect.Field;
 
 @Component
 public class UniqueValidator implements ConstraintValidator<Unique, Object> {
@@ -33,10 +36,15 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
     @Override
     @Transactional
     public boolean isValid (Object propValueThatMustBeUnique, ConstraintValidatorContext context) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        if (this.entityField.isEmpty()) {
+            this.entityField = getFieldValueByReflection(context);
+        }
+
+        CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
 
-        Root<?> from = criteriaQuery.from(entityClass);
+        Root<?> from = criteriaQuery.from(this.entityClass);
         Path<Object> columnThatMustBeUnique = from.get(this.entityField);
         Predicate valueMustBeUnique = criteriaBuilder.equal(columnThatMustBeUnique, propValueThatMustBeUnique);
 
@@ -47,6 +55,17 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
             return false;
         } catch (NoResultException e) {
             return true;
+        }
+    }
+
+    private String getFieldValueByReflection(ConstraintValidatorContext context) {
+        try {
+            Field basePath = ConstraintValidatorContextImpl.class.getDeclaredField("basePath");
+            basePath.setAccessible(true);
+            PathImpl pathImpl = (PathImpl) basePath.get(context);
+            return pathImpl.getLeafNode().asString();
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException();
         }
     }
 }
