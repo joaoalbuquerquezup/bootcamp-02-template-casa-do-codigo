@@ -1,6 +1,7 @@
 package br.com.zup.casadocodigo.infra.jpa;
 
 import br.com.zup.casadocodigo.book.list.ListBookResponse;
+import br.com.zup.casadocodigo.book.view.ViewBookResponse;
 import com.vladmihalcea.hibernate.type.util.ClassImportIntegrator;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.jpa.boot.spi.IntegratorProvider;
@@ -14,7 +15,8 @@ public class ClassImportIntegratorIntegratorProvider implements IntegratorProvid
         return List.of(
                 new ClassImportIntegrator(
                         List.of(
-                                ListBookResponse.class
+                                ListBookResponse.class,
+                                ViewBookResponse.class
                         )
                 )
         );
