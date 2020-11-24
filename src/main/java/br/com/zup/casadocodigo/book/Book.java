@@ -90,6 +90,14 @@ public class Book {
         this.author = bookBuilder.author;
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
     /**
      * Criação do "Twisted Builder" a partir do artigo: https://aidium.se/2015/01/09/builder-pattern-for-mandatory-values/
      *
@@ -107,12 +115,12 @@ public class Book {
             BookTotalPagesBuilder, BookIsbnBuilder, BookCategoryBuilder,
             BookAuthorBuilder, FinalBookBuilder {
 
-        private @NotBlank @Unique(clazz = Book.class) String title;
+        private @NotBlank String title;
         private @NotBlank @Size(max = 500) String summary;
         private String index;
         private @NotNull @Min(value = 20L) BigDecimal price;
         private @NotNull @Min(value = 100L) Integer totalPages;
-        private @NotBlank @Unique(clazz = Book.class) String isbn;
+        private @NotBlank String isbn;
         private @Future LocalDate publishDate;
         private @NotNull Category category;
         private @NotNull Author author;
