@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -55,8 +57,14 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
     }
 
+    @ExceptionHandler (NoResultException.class)
+    public ResponseEntity<Map<String, String>>  handleNoResultException (NoResultException exception) {
+        Map<String, String> ERROR = Map.of("message", exception.getMessage()); // Usar uma internacionalizada
+        return ResponseEntity.status(NOT_FOUND).body(ERROR);
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleUncaught(Exception ex) {
+    public ResponseEntity<Map<String, String>> handleUncaught(Exception ex) {
         logger.error(ex.getMessage(), ex);
 
         Map<String, String> ERROR = Map.of("message", GENERIC_ERROR);
