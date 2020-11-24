@@ -1,6 +1,7 @@
-package br.com.zup.casadocodigo.book;
+package br.com.zup.casadocodigo.book.create;
 
 import br.com.zup.casadocodigo.author.Author;
+import br.com.zup.casadocodigo.book.Book;
 import br.com.zup.casadocodigo.category.Category;
 import br.com.zup.casadocodigo.validation.Unique;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
