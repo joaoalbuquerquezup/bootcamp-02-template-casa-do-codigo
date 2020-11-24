@@ -10,7 +10,6 @@ import br.com.zup.casadocodigo.book.builder.BookTitleBuilder;
 import br.com.zup.casadocodigo.book.builder.BookTotalPagesBuilder;
 import br.com.zup.casadocodigo.book.builder.FinalBookBuilder;
 import br.com.zup.casadocodigo.category.Category;
-import br.com.zup.casadocodigo.validation.Unique;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -96,6 +95,30 @@ public class Book {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public String getSummary() {
+        return this.summary;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getPublishDate() {
+        return publishDate;
     }
 
     /**
