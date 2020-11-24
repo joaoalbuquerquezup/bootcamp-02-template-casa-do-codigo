@@ -38,4 +38,20 @@ public class BookController {
 
         return ResponseEntity.ok().build();
     }
+
+    /**
+     * TODO: Deveria ser incluída a paginação
+     */
+    @GetMapping
+    public ResponseEntity<List<ListBookResponse>> list () {
+
+        String sql = "SELECT new ListBookResponse(b.id, b.title) FROM Book b";
+
+        List<ListBookResponse> listBookResponse = this.entityManager
+                .createQuery(sql,  ListBookResponse.class)
+                .getResultList();
+
+        return ResponseEntity.ok(listBookResponse);
+    }
+
 }
