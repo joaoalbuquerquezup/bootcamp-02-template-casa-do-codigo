@@ -58,7 +58,10 @@ public class BookController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ViewBookResponse> view (@PathVariable Long id) {
-        String sql = "SELECT new ViewBookResponse(b, c.name, a.name, a.description)" +
+        String sql = "SELECT new br.com.zup.casadocodigo.book.view.ViewBookResponse(" +
+                                " b.title, b.summary, b.index, b.price, b.totalPages, b.isbn, b.publishDate," +
+                                " c.name," +
+                                " a.name, a.description)" +
                     " FROM Book b " +
                     " INNER JOIN b.author a" +
                     " INNER JOIN b.category c" +

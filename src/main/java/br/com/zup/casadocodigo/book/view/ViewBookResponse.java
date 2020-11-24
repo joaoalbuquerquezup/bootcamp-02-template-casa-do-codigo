@@ -1,6 +1,5 @@
 package br.com.zup.casadocodigo.book.view;
 
-import br.com.zup.casadocodigo.book.Book;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.math.BigDecimal;
@@ -22,14 +21,23 @@ public class ViewBookResponse {
 
     private String categoryName;
 
-    public ViewBookResponse(Book book, String categoryName, String authorName, String authorDescription) {
-        this.title = book.getTitle();
-        this.summary = book.getSummary();
-        this.index = book.getIndex();
-        this.price = book.getPrice();
-        this.totalPages = book.getTotalPages();
-        this.isbn = book.getIsbn();
-        this.publishDate = book.getPublishDate();
+    public ViewBookResponse(String title,
+                            String summary,
+                            String index,
+                            BigDecimal price,
+                            Integer totalPages,
+                            String isbn,
+                            LocalDate publishDate,
+                            String authorName,
+                            String authorDescription,
+                            String categoryName) {
+        this.title = title;
+        this.summary = summary;
+        this.index = index;
+        this.price = price;
+        this.totalPages = totalPages;
+        this.isbn = isbn;
+        this.publishDate = publishDate;
         this.authorName = authorName;
         this.authorDescription = authorDescription;
         this.categoryName = categoryName;

@@ -89,38 +89,6 @@ public class Book {
         this.author = bookBuilder.author;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public String getSummary() {
-        return this.summary;
-    }
-
-    public String getIndex() {
-        return index;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Integer getTotalPages() {
-        return totalPages;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public LocalDate getPublishDate() {
-        return publishDate;
-    }
-
     /**
      * Criação do "Twisted Builder" a partir do artigo: https://aidium.se/2015/01/09/builder-pattern-for-mandatory-values/
      *
