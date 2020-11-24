@@ -5,6 +5,7 @@ import br.com.zup.casadocodigo.book.create.CreateBookRequest;
 import br.com.zup.casadocodigo.book.list.ListBookResponse;
 import br.com.zup.casadocodigo.book.view.ViewBookResponse;
 import br.com.zup.casadocodigo.category.Category;
+import br.com.zup.casadocodigo.infra.jpa.ClassImportIntegratorIntegratorProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,8 @@ public class BookController {
 
     /**
      * TODO: Deveria ser incluída a paginação
+     * {@link ClassImportIntegratorIntegratorProvider} O uso dessa configuração permite que a projeção do construtor
+     * funcione sem o fully qualified name
      */
     @GetMapping
     public ResponseEntity<List<ListBookResponse>> list () {
