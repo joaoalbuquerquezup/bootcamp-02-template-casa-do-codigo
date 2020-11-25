@@ -31,7 +31,7 @@ public class NewCountryController {
 
         URI uri = uriComponentsBuilder
                 .path("/country/{id}")
-                .buildAndExpand("id", country.getId())
+                .buildAndExpand(country.getId())
                 .toUri();
 
         return ResponseEntity.created(uri).build();

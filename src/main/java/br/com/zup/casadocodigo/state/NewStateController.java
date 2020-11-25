@@ -36,7 +36,7 @@ public class NewStateController {
 
         URI uri = uriComponentsBuilder
                 .path("/state/{id}")
-                .buildAndExpand("id", state.getId())
+                .buildAndExpand(state.getId())
                 .toUri();
 
         return ResponseEntity.created(uri).build();
