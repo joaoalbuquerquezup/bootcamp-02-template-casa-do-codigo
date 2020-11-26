@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -122,5 +123,14 @@ public class Purchase {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<Purchase>> violationSet = validator.validate(this);
         if (!violationSet.isEmpty()) throw new ConstraintViolationException(violationSet);
+    }
+
+    public void addPurchaseItem(PurchaseItem purchaseItem) {
+        this.purchaseItemList.add(purchaseItem);
+        purchaseItem.setPurchase(this);
+    }
+
+    public List<PurchaseItem> getPurchaseItemList() {
+        return Collections.unmodifiableList(this.purchaseItemList);
     }
 }
