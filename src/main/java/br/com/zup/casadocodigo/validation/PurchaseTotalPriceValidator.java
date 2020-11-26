@@ -1,8 +1,8 @@
 package br.com.zup.casadocodigo.validation;
 
 import br.com.zup.casadocodigo.book.Book;
-import br.com.zup.casadocodigo.purchase.shoppingcart.NewShoppingCartRequest;
-import br.com.zup.casadocodigo.purchase.cartitem.ShoppingCartItemsRequest;
+import br.com.zup.casadocodigo.purchase.NewPurchaseRequest;
+import br.com.zup.casadocodigo.purchase.cartitem.NewPurchaseItemRequest;
 
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintValidator;
@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class PurchaseTotalPriceValidator implements ConstraintValidator<PurchaseTotalPrice, NewShoppingCartRequest> {
+public class PurchaseTotalPriceValidator implements ConstraintValidator<PurchaseTotalPrice, NewPurchaseRequest> {
 
     private final EntityManager entityManager;
 
@@ -18,18 +18,29 @@ public class PurchaseTotalPriceValidator implements ConstraintValidator<Purchase
         this.entityManager = entityManager;
     }
 
-    public boolean isValid(NewShoppingCartRequest newShoppingCartRequest, ConstraintValidatorContext context) {
+    public boolean isValid(NewPurchaseRequest newShoppingCartRequest, ConstraintValidatorContext context) {
 
-        BigDecimal totalRequest = newShoppingCartRequest.getTotal();
-        List<ShoppingCartItemsRequest> shoppingCartItemsRequest = newShoppingCartRequest.getShoppingCartItemsRequest();
+        BigDecimal totalRequest = newShoppingCartRequest.getTotal().setScale(2);
 
-        BigDecimal realTotal = shoppingCartItemsRequest
+        List<NewPurchaseItemRequest> newPurchaseItemRequest = newShoppingCartRequest.getShoppingCartItemsRequest();
+
+        BigDecimal realTotal = newPurchaseItemRequest
                 .stream()
-                .map(ShoppingCartItemsRequest::getBookId)
-                .map(bookId -> this.entityManager.find(Book.class, bookId))
-                .map(Book::getPrice)
+                .map(item -> {
+                    Book book = this.entityManager.find(Book.class, item.getBookId());
+                    BigDecimal amount = new BigDecimal(item.getAmount());
+                    return book.getPrice().multiply(amount);
+                })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return totalRequest.equals(realTotal);
+
+        String defaultMessage = context.getDefaultConstraintMessageTemplate();
+        context.disableDefaultConstraintViolation();
+
+        context.buildConstraintViolationWithTemplate(defaultMessage)
+                .addPropertyNode("total")
+                .addConstraintViolation();
+
+        return totalRequest.equals(realTotal); // Usar o compareTo
     }
 }
