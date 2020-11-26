@@ -87,6 +87,14 @@ public class Book {
         this.publishDate = bookBuilder.publishDate;
         this.category = bookBuilder.category;
         this.author = bookBuilder.author;
+
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<Book>> violationSet = validator.validate(this);
+        if (!violationSet.isEmpty()) throw new ConstraintViolationException(violationSet);
+    }
+
+    public BigDecimal getPrice() {
+        return price;
     }
 
     /**
@@ -181,10 +189,6 @@ public class Book {
 
         @Override
         public Book build() {
-            Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-            Set<ConstraintViolation<BookBuilder>> violationSet = validator.validate(this);
-            if (!violationSet.isEmpty()) throw new ConstraintViolationException(violationSet);
-
             return new Book(this);
         }
     }

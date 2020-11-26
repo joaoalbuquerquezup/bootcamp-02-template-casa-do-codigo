@@ -39,4 +39,8 @@ public class State {
     public Long getId() {
         return this.id;
     }
+
+    public boolean belongsTo(Country country) {
+        return this.country.equals(country);
+    }
 }
