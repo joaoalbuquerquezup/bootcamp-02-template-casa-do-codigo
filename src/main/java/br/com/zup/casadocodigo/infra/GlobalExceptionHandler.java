@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -47,7 +48,7 @@ public class GlobalExceptionHandler {
         }).collect(Collectors.toList());
     }
 
-    @ResponseStatus (code = HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseStatus (code = UNPROCESSABLE_ENTITY)
     @ExceptionHandler (ConstraintViolationException.class)
     public List<ApiErrorReturn> handleInvalidState (ConstraintViolationException exception) {
         Set<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
@@ -61,6 +62,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>>  handleNoResultException (NoResultException exception) {
         Map<String, String> ERROR = Map.of("message", exception.getMessage()); // Usar uma internacionalizada
         return ResponseEntity.status(NOT_FOUND).body(ERROR);
+    }
+
+    @ExceptionHandler (IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>>  handleIllegalArgumentException (IllegalArgumentException exception) {
+        Map<String, String> ERROR = Map.of("message", exception.getMessage()); // Usar uma internacionalizada
+        return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(ERROR);
     }
 
     @ExceptionHandler(Exception.class)
