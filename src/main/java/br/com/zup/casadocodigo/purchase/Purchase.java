@@ -1,9 +1,11 @@
 package br.com.zup.casadocodigo.purchase;
 
 import br.com.zup.casadocodigo.country.Country;
+import br.com.zup.casadocodigo.coupon.Coupon;
 import br.com.zup.casadocodigo.purchase.cartitem.PurchaseItem;
 import br.com.zup.casadocodigo.state.State;
 import br.com.zup.casadocodigo.validation.CpfCnpj;
+import org.springframework.util.Assert;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -85,6 +87,9 @@ public class Purchase {
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.PERSIST)
     private List<PurchaseItem> purchaseItemList;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Coupon coupon;
+
     /**
      * Hibernate usage only
      */
@@ -132,5 +137,11 @@ public class Purchase {
 
     public List<PurchaseItem> getPurchaseItemList() {
         return Collections.unmodifiableList(this.purchaseItemList);
+    }
+
+    public void setCoupon(Coupon coupon) {
+        Assert.isNull(this.coupon, "Não é possível atualizar o Cupom!");
+        Assert.isTrue(coupon.isValid(),"O cupom expirou");
+        this.coupon = coupon;
     }
 }

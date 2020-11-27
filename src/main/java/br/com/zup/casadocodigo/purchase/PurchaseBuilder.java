@@ -1,6 +1,7 @@
 package br.com.zup.casadocodigo.purchase;
 
 import br.com.zup.casadocodigo.country.Country;
+import br.com.zup.casadocodigo.coupon.Coupon;
 import br.com.zup.casadocodigo.purchase.cartitem.PurchaseItem;
 import br.com.zup.casadocodigo.state.State;
 
@@ -22,6 +23,7 @@ public class PurchaseBuilder {
     private String cep;
     private BigDecimal total;
     private List<PurchaseItem> purchaseItemList;
+    private Coupon coupon;
 
     public static PurchaseBuilder aPurchase() {
         return new PurchaseBuilder();
@@ -106,6 +108,7 @@ public class PurchaseBuilder {
                 this.phone,
                 this.cep,
                 this.total,
-                this.purchaseItemList);
+                this.purchaseItemList
+        );
     }
 }
