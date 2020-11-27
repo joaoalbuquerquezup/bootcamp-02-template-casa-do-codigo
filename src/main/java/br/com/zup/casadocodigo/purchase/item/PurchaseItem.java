@@ -44,6 +44,14 @@ public class PurchaseItem {
         this.amount = amount;
     }
 
+    public Book getBook() {
+        return this.book;
+    }
+
+    public Long getAmount() {
+        return this.amount;
+    }
+
     public void setPurchase(Purchase purchase) {
         this.purchase = purchase;
     }

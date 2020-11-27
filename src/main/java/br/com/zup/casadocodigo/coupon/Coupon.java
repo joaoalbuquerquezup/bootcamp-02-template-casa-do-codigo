@@ -46,6 +46,10 @@ public class Coupon {
         this.validUntil = validUntil;
     }
 
+    public BigDecimal getPercentageDiscount() {
+        return percentageDiscount;
+    }
+
     public boolean isValid() {
         return LocalDate.now().compareTo(this.validUntil) <= 0;
     }

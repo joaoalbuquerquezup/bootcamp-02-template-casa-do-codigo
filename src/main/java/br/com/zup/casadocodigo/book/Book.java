@@ -93,8 +93,12 @@ public class Book {
         if (!violationSet.isEmpty()) throw new ConstraintViolationException(violationSet);
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
     public BigDecimal getPrice() {
-        return price;
+        return this.price;
     }
 
     /**

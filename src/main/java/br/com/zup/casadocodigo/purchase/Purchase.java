@@ -130,6 +130,58 @@ public class Purchase {
         if (!violationSet.isEmpty()) throw new ConstraintViolationException(violationSet);
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public String getDocument() {
+        return this.document;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public String getComplement() {
+        return this.complement;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public State getState() {
+        return this.state;
+    }
+
+    public Country getCountry() {
+        return this.country;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public String getCep() {
+        return this.cep;
+    }
+
+    public BigDecimal getTotal() {
+        return this.total;
+    }
+
+    public Coupon getCoupon() {
+        return this.coupon;
+    }
+
     public void addPurchaseItem(PurchaseItem purchaseItem) {
         this.purchaseItemList.add(purchaseItem);
         purchaseItem.setPurchase(this);
