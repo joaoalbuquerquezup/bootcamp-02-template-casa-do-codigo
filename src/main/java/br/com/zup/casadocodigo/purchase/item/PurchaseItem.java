@@ -1,4 +1,4 @@
-package br.com.zup.casadocodigo.purchase.cartitem;
+package br.com.zup.casadocodigo.purchase.item;
 
 import br.com.zup.casadocodigo.book.Book;
 import br.com.zup.casadocodigo.purchase.Purchase;

@@ -2,7 +2,7 @@ package br.com.zup.casadocodigo.purchase;
 
 import br.com.zup.casadocodigo.country.Country;
 import br.com.zup.casadocodigo.coupon.Coupon;
-import br.com.zup.casadocodigo.purchase.cartitem.PurchaseItem;
+import br.com.zup.casadocodigo.purchase.item.PurchaseItem;
 import br.com.zup.casadocodigo.state.State;
 import br.com.zup.casadocodigo.validation.CpfCnpj;
 import org.springframework.util.Assert;

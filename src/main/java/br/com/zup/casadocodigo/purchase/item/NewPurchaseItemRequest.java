@@ -1,7 +1,6 @@
-package br.com.zup.casadocodigo.purchase.cartitem;
+package br.com.zup.casadocodigo.purchase.item;
 
 import br.com.zup.casadocodigo.book.Book;
-import br.com.zup.casadocodigo.country.Country;
 import br.com.zup.casadocodigo.validation.ExistentId;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

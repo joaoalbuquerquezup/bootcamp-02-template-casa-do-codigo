@@ -2,7 +2,7 @@ package br.com.zup.casadocodigo.validation;
 
 import br.com.zup.casadocodigo.book.Book;
 import br.com.zup.casadocodigo.purchase.NewPurchaseRequest;
-import br.com.zup.casadocodigo.purchase.cartitem.NewPurchaseItemRequest;
+import br.com.zup.casadocodigo.purchase.item.NewPurchaseItemRequest;
 
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintValidator;
